@@ -1,0 +1,20 @@
+{
+  "name": "grand-yatcilik",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "busboy": "^1.6.0",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "twilio": "^5.8.2"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "version": "1.0.0",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
