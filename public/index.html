@@ -1,1220 +1,859 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Yatçılık Yat Turları - Unutulmaz Deniz Maceraları</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .slider-container {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .slider-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        
-        .slide {
-            min-width: 100%;
-            height: 500px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        
-        .slide-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,100,200,0.3));
-        }
-        
-        .floating-animation {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .wave-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            position: relative;
-            overflow: hidden;
-            
-        }
-        
-        .wave-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,117.3C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") repeat-x;
-            animation: wave 10s linear infinite;
-            pointer-events: none; /* tıklamaları engellemesin */
-            z-index: 0;           /* en arkada kalsın */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grand Yatçılık Yat Turları - Unutulmaz Deniz Maceraları</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
 
-        /* İçerikleri dalganın üstüne çıkar */
-        .wave-bg > * {
-            position: relative;
-            z-index: 1;
-        }
-        
-        @keyframes wave {
-            0% { background-position-x: 0; }
-            100% { background-position-x: 1440px; }
-        }
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    * { font-family: 'Poppins', sans-serif; }
 
-        /* --- Lightbox viewport: max 1600×900, ekrana göre esnek --- */
-:root {
-  --gallery-max-w: 1600px;
-  --gallery-max-h: 900px;
-}
+    .slider-container { position: relative; overflow: hidden; }
+    .slider-track { display: flex; transition: transform .5s ease-in-out; }
+    .slide { position: relative; min-width: 100%; height: 500px; }
+    .slide-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(45deg, rgba(0,0,0,.4), rgba(0,100,200,.3));
+      pointer-events: none;
+    }
+    .floating-animation { animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 
-/* İçerik kutumuz: ekran payı kadar büyüsün, ama 1600×900’ü geçmesin */
-#galleryModal .gallery-viewport {
-  width: min(100vw - 2rem, var(--gallery-max-w));   /* sağ-sol 1rem boşluk */
-  height: min(100vh - 8rem, var(--gallery-max-h));  /* üst-alt ~4rem boşluk */
-  margin-inline: auto;
-}
+    .wave-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative; overflow: hidden;
+    }
+    .wave-bg::before {
+      content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,117.3C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") repeat-x;
+      animation: wave 10s linear infinite;
+    }
+    .wave-bg > * { position: relative; z-index: 1; }
+    @keyframes wave { 0%{background-position-x:0} 100%{background-position-x:1440px} }
 
-/* Kaydırıcı ve slaytlar, viewport’u tamamen kullansın */
-#galleryScroller {
-  width: 100%;
-  height: 100%;
-}
-#galleryScroller > div {
-  width: 100%;
-  height: 100%;
-}
+    /* ---------- Lightbox boyutları ---------- */
+    #galleryModal .gallery-viewport {
+      width: min(100vw - 2rem, 1600px);
+      height: min(100vh - 6rem, 900px);
+      margin-inline: auto;
+    }
+    #galleryScroller { width: 100%; height: 100%; }
+    #galleryScroller > div { width: 100%; height: 100%; }
 
-/* Görsel, oran bozulmadan en büyük hâl */
-#galleryScroller img {
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-/* Slayt kapsayıcıları, viewport'u tamamen kaplasın */
-#galleryScroller > div {
-  width: 100%;
-  height: 100%;
-}
-
-/* Görseli oran bozulmadan en büyük şekilde sığdır */
-#galleryScroller img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  border-radius: 0.75rem; /* görselde hafif köşe */
-}
-
-
-    </style>
+    /* Tek bir kural: oran bozulmadan sığdır, taşma yok */
+    #galleryScroller img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: .75rem;
+    }
+  </style>
 </head>
+
 <body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <i class="fas fa-anchor text-blue-600 text-2xl mr-2"></i>
-                    <span class="text-xl font-bold text-gray-800">Grand Yatçılık-Grand Yacthing</span>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#anasayfa" class="text-gray-700 hover:text-blue-600 transition duration-300">Ana Sayfa</a>
-                    <a href="#turlar" class="text-gray-700 hover:text-blue-600 transition duration-300">Turlarımız</a>
-                    <a href="#galeri" class="text-gray-700 hover:text-blue-600 transition duration-300">Galeri</a>
-                    <a href="#iletisim" class="text-gray-700 hover:text-blue-600 transition duration-300">İletişim</a>
-                    <!-- sağ tarafta, linklerin yanında bir yere ekleyin -->
-                    <button onclick="setEN()"
-                    class="hidden md:inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700"
-                    title="Switch to English">
-                    <i class="fas fa-globe"></i><span>EN</span>
-                    </button>
-
-                </div>
-                <button class="md:hidden">
-                    <i class="fas fa-bars text-gray-700"></i>
-                </button>
-            </div>
+  <!-- NAV -->
+  <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <i class="fas fa-anchor text-blue-600 text-2xl mr-2"></i>
+          <span class="text-xl font-bold text-gray-800">Grand Yatçılık-Grand Yacthing</span>
         </div>
-    </nav>
+        <div class="hidden md:flex space-x-8">
+          <a href="#anasayfa" class="text-gray-700 hover:text-blue-600 transition">Ana Sayfa</a>
+          <a href="#turlar" class="text-gray-700 hover:text-blue-600 transition">Turlarımız</a>
+          <a href="#galeri" class="text-gray-700 hover:text-blue-600 transition">Galeri</a>
+          <a href="#iletisim" class="text-gray-700 hover:text-blue-600 transition">İletişim</a>
 
-    <!-- Hero Section with Slider -->
-    <section id="anasayfa" class="pt-16">
-        <div class="slider-container">
-            <div class="slider-track" id="sliderTrack">
-                <!-- Slide 1 -->
-                <div class="slide" aria-label="Grand 1"
-     style="background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,100,200,0.3)), url('images/tekne1.jpg');">
-  <div class="slide-overlay"></div>
-  <div class="absolute inset-0 flex items-center justify-center text-center text-white">
-    <div>
-      <h1 class="text-5xl font-bold mb-4 floating-animation">Grand 1</h1>
-      <p class="text-xl mb-8">Konforlu ve ekonomik deniz keyfi</p>
-      <button onclick="scrollToBoats()"
-              class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition duration-300 transform hover:scale-105">
-        Rezervasyon Yap
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="slide" aria-label="Mirbey"
-     style="background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,100,200,0.3)), url('images/tekne2.png');">
-  <div class="slide-overlay"></div>
-  <div class="absolute inset-0 flex items-center justify-center text-center text-white">
-    <div>
-      <h1 class="text-5xl font-bold mb-4 floating-animation">Mirbey</h1>
-      <p class="text-xl mb-8">Geniş iç hacim, rahat alanlar</p>
-      <button onclick="scrollToBoats()"
-              class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition duration-300 transform hover:scale-105">
-        Rezervasyon Yap
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="slide" aria-label="Tekne 3"
-     style="background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,100,200,0.3)), url('images/tekne3.jpg');">
-  <div class="slide-overlay"></div>
-  <div class="absolute inset-0 flex items-center justify-center text-center text-white">
-    <div>
-      <h1 class="text-5xl font-bold mb-4 floating-animation">Tekne 3</h1>
-      <p class="text-xl mb-8">Premium donanım, lüks deneyim</p>
-      <button onclick="scrollToBoats()"
-              class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition duration-300 transform hover:scale-105">
-        Rezervasyon Yap
-      </button>
-    </div>
-  </div>
-</div>
-
-            </div>
-            
-            <!-- Slider Controls -->
-            <button onclick="previousSlide()" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white p-3 rounded-full transition duration-300">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button onclick="nextSlide()" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white p-3 rounded-full transition duration-300">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            
-            <!-- Slider Dots -->
-            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                <button onclick="goToSlide(0)" class="w-3 h-3 bg-white bg-opacity-50 rounded-full hover:bg-opacity-80 transition duration-300" id="dot-0"></button>
-                <button onclick="goToSlide(1)" class="w-3 h-3 bg-white bg-opacity-50 rounded-full hover:bg-opacity-80 transition duration-300" id="dot-1"></button>
-                <button onclick="goToSlide(2)" class="w-3 h-3 bg-white bg-opacity-50 rounded-full hover:bg-opacity-80 transition duration-300" id="dot-2"></button>
-            </div>
+          <!-- Dil butonu -->
+          <button onclick="setEN()"
+                  class="hidden md:inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700"
+                  title="Switch to English">
+            <i class="fas fa-globe"></i><span>EN</span>
+          </button>
         </div>
-    </section>
-    
-    <section id="turlar" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4">Teknelerimiz & Turlar</h2>
-            <p class="text-xl text-gray-600">Bir tekne seçin, turunuzu açılır listeden belirleyin</p>
-          </div>
-      
-          <div class="space-y-6">
-      
-            <!-- Grand 1 -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-              <button onclick="toggleBoat('boat-1')" aria-expanded="false"
-                      class="w-full flex items-center justify-between px-6 py-5 hover:bg-gray-50 transition">
-                <div class="flex items-center gap-3">
-                  <div class="h-12 w-12 rounded-lg bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white">
-                    <i class="fas fa-ship text-2xl"></i>
-                  </div>
-                  <div class="text-left">
-                    <h3 class="text-xl font-semibold text-gray-800">Grand 1</h3>
-                    <p class="text-gray-500 text-sm">Konforlu ve ekonomik seçenek</p>
-                  </div>
-                </div>
-                <i id="boat-1-icon" class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+        <button class="md:hidden">
+          <i class="fas fa-bars text-gray-700"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="anasayfa" class="pt-16">
+    <div class="slider-container">
+      <div class="slider-track" id="sliderTrack">
+
+        <!-- Slide 1 -->
+        <div class="slide">
+          <!-- background-image yerine IMG (iOS için daha güvenli) -->
+          <img src="images/tekne1.jpg"
+               alt="Grand 1"
+               class="absolute inset-0 w-full h-full object-cover"
+               loading="eager"
+               onerror="this.onerror=null;this.src='images/grand1.jpg';"/>
+          <div class="slide-overlay"></div>
+          <div class="absolute inset-0 flex items-center justify-center text-center text-white">
+            <div>
+              <h1 class="text-5xl font-bold mb-4 floating-animation">Grand 1</h1>
+              <p class="text-xl mb-8">Konforlu ve ekonomik deniz keyfi</p>
+              <button onclick="scrollToBoats()"
+                      class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition transform hover:scale-105">
+                Rezervasyon Yap
               </button>
-      
-              <div id="boat-1" class="hidden border-t border-gray-100">
-                <ul class="divide-y">
-                  <li class="flex items-center justify-between px-6 py-4">
-                    <div>
-                      <p class="font-semibold text-gray-800">Saatlik Tur (3 saat)</p>
-                      <p class="text-sm text-gray-500">Yüzme molası ve ikramlar dahil</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                      <span class="text-2xl font-bold text-blue-600">Out of service now.</span>
-                      <button onclick="openBoatReservation('Grand 1','Saatlik Tur','₺1.200')"
-                              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
-                    </div>
-                  </li>
-                  <li class="flex items-center justify-between px-6 py-4">
-                    <div>
-                      <p class="font-semibold text-gray-800">Günbatımı Turu (4 saat)</p>
-                      <p class="text-sm text-gray-500">Romantik günbatımı manzarası</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                      <span class="text-2xl font-bold text-orange-600">€300</span>
-                      <button onclick="openBoatReservation('Grand 1','Günbatımı Turu','₺1.800')"
-                              class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
-                    </div>
-                  </li>
-                  <li class="flex items-center justify-between px-6 py-4">
-                    <div>
-                      <p class="font-semibold text-gray-800">Tam Gün Turu (8 saat)</p>
-                      <p class="text-sm text-gray-500">Öğle yemeği ve tüm aktiviteler dahil</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                      <span class="text-2xl font-bold text-green-600">€800</span>
-                      <button onclick="openBoatReservation('Grand 1','Tam Gün Turu','₺2.800')"
-                              class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
-                    </div>
-                  </li>
-                </ul>
-              </div>
             </div>
-      
-            <!-- Mirbey -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-              <button onclick="toggleBoat('boat-2')" aria-expanded="false"
-                      class="w-full flex items-center justify-between px-6 py-5 hover:bg-gray-50 transition">
-                <div class="flex items-center gap-3">
-                  <div class="h-12 w-12 rounded-lg bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white">
-                    <i class="fas fa-anchor text-2xl"></i>
-                  </div>
-                  <div class="text-left">
-                    <h3 class="text-xl font-semibold text-gray-800">Mirbey</h3>
-                    <p class="text-gray-500 text-sm">Geniş iç hacim, konforlu alanlar</p>
-                  </div>
-                </div>
-                <i id="boat-2-icon" class="fas fa-chevron-down text-gray-500 transition-transform"></i>
-              </button>
-      
-              <div id="boat-2" class="hidden border-t border-gray-100">
-                <ul class="divide-y">
-                  <li class="flex items-center justify-between px-6 py-4">
-                    <div>
-                      <p class="font-semibold text-gray-800">Saatlik Tur (3 saat)</p>
-                      <p class="text-sm text-gray-500">Yüzme molası ve ikramlar dahil</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                      <span class="text-2xl font-bold text-blue-600">Out of service now.</span>
-                      <button onclick="openBoatReservation('Mirbey','Saatlik Tur','₺1.200')"
-                              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
-                    </div>
-                  </li>
-                  <li class="flex items-center justify-between px-6 py-4">
-                    <div>
-                      <p class="font-semibold text-gray-800">Günbatımı Turu (4 saat)</p>
-                      <p class="text-sm text-gray-500">Romantik günbatımı manzarası</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                      <span class="text-2xl font-bold text-orange-600">€500</span>
-                      <button onclick="openBoatReservation('Mirbey','Günbatımı Turu','₺1.800')"
-                              class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
-                    </div>
-                  </li>
-                  <li class="flex items-center justify-between px-6 py-4">
-                    <div>
-                      <p class="font-semibold text-gray-800">Tam Gün Turu (8 saat)</p>
-                      <p class="text-sm text-gray-500">Öğle yemeği ve tüm aktiviteler dahil</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                      <span class="text-2xl font-bold text-green-600">€1350</span>
-                      <button onclick="openBoatReservation('Mirbey','Tam Gün Turu','₺2.800')"
-                              class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-      
-            <!-- Tekne 3 -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-              <button onclick="toggleBoat('boat-3')" aria-expanded="false"
-                      class="w-full flex items-center justify-between px-6 py-5 hover:bg-gray-50 transition">
-                <div class="flex items-center gap-3">
-                  <div class="h-12 w-12 rounded-lg bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white">
-                    <i class="fas fa-water text-2xl"></i>
-                  </div>
-                  <div class="text-left">
-                    <h3 class="text-xl font-semibold text-gray-800">Tekne 3</h3>
-                    <p class="text-gray-500 text-sm">Premium donanım, lüks deneyim</p>
-                  </div>
-                </div>
-                <i id="boat-3-icon" class="fas fa-chevron-down text-gray-500 transition-transform"></i>
-              </button>
-      
-              <div id="boat-3" class="hidden border-t border-gray-100">
-                <ul class="divide-y">
-                  <li class="flex items-center justify-between px-6 py-4">
-                    <div>
-                      <p class="font-semibold text-gray-800">Saatlik Tur (3 saat)</p>
-                      <p class="text-sm text-gray-500">Yüzme molası ve ikramlar dahil</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                      <span class="text-2xl font-bold text-blue-600">We'll add our new yacth here.</span>
-                      <button onclick="openBoatReservation('Tekne 3','Saatlik Tur','₺1.200')"
-                              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
-                    </div>
-                  </li>
-                  <li class="flex items-center justify-between px-6 py-4">
-                    <div>
-                      <p class="font-semibold text-gray-800">Günbatımı Turu (4 saat)</p>
-                      <p class="text-sm text-gray-500">Romantik günbatımı manzarası</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                      <span class="text-2xl font-bold text-orange-600">We'll add our new yacth here.</span>
-                      <button onclick="openBoatReservation('Tekne 3','Günbatımı Turu','₺1.800')"
-                              class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
-                    </div>
-                  </li>
-                  <li class="flex items-center justify-between px-6 py-4">
-                    <div>
-                      <p class="font-semibold text-gray-800">Tam Gün Turu (8 saat)</p>
-                      <p class="text-sm text-gray-500">Öğle yemeği ve tüm aktiviteler dahil</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                      <span class="text-2xl font-bold text-green-600">We'll add our new yacth here.</span>
-                      <button onclick="openBoatReservation('Tekne 3','Tam Gün Turu','₺2.800')"
-                              class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-      
           </div>
         </div>
-      </section>
-      
-    
-    <!-- Gallery Section -->
-    <section id="galeri" class="py-20 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Galeri</h2>
-                <p class="text-xl text-gray-600">Yatımızdan ve turlarımızdan kareler</p>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+          <img src="images/tekne2.png"
+               alt="Mirbey"
+               class="absolute inset-0 w-full h-full object-cover"
+               loading="lazy"
+               onerror="this.onerror=null;this.src='images/grand2.jpg';"/>
+          <div class="slide-overlay"></div>
+          <div class="absolute inset-0 flex items-center justify-center text-center text-white">
+            <div>
+              <h1 class="text-5xl font-bold mb-4 floating-animation">Mirbey</h1>
+              <p class="text-xl mb-8">Geniş iç hacim, rahat alanlar</p>
+              <button onclick="scrollToBoats()"
+                      class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition transform hover:scale-105">
+                Rezervasyon Yap
+              </button>
             </div>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-              <div onclick="openGallery('luks')" class="bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition duration-300 cursor-pointer">
-                <div class="text-center text-white">
-                  <i class="fas fa-ship text-4xl mb-2"></i>
-                  <p class="text-lg">Lüks Yatımız</p>
-                </div>
-              </div>
-            
-              <div onclick="openGallery('kristal')" class="bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition duration-300 cursor-pointer">
-                <div class="text-center text-white">
-                  <i class="fas fa-water text-4xl mb-2"></i>
-                  <p class="text-lg">Kristal Berrak Su</p>
-                </div>
-              </div>
-            
-              <div onclick="openGallery('gunbatimi')" class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition duration-300 cursor-pointer">
-                <div class="text-center text-white">
-                  <i class="fas fa-sun text-4xl mb-2"></i>
-                  <p class="text-lg">Günbatımı Manzarası</p>
-                </div>
-              </div>
-            
-              <div onclick="openGallery('yemekler')" class="bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition duration-300 cursor-pointer">
-                <div class="text-center text-white">
-                  <i class="fas fa-utensils text-4xl mb-2"></i>
-                  <p class="text-lg">Lezzetli Yemekler</p>
-                </div>
-              </div>
-            
-              <div onclick="openGallery('yuzme')" class="bg-gradient-to-br from-green-400 to-green-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition duration-300 cursor-pointer">
-                <div class="text-center text-white">
-                  <i class="fas fa-swimming-pool text-4xl mb-2"></i>
-                  <p class="text-lg">Yüzme Keyfi</p>
-                </div>
-              </div>
-            
-              <div onclick="openGallery('romantik')" class="bg-gradient-to-br from-pink-400 to-pink-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition duration-300 cursor-pointer">
-                <div class="text-center text-white">
-                  <i class="fas fa-heart text-4xl mb-2"></i>
-                  <p class="text-lg">Romantik Anlar</p>
-                </div>
-              </div>
-            </div>
-            
-            </div>
+          </div>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="iletisim" class="py-20 wave-bg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-white mb-4">İletişim</h2>
-                <p class="text-xl text-white opacity-90">Bizimle iletişime geçin, hayalinizdeki turu planlayalım</p>
+        <!-- Slide 3 -->
+        <div class="slide">
+          <img src="images/tekne3.jpg"
+               alt="Tekne 3"
+               class="absolute inset-0 w-full h-full object-cover"
+               loading="lazy"
+               onerror="this.onerror=null;this.src='images/grand3.jpg';"/>
+          <div class="slide-overlay"></div>
+          <div class="absolute inset-0 flex items-center justify-center text-center text-white">
+            <div>
+              <h1 class="text-5xl font-bold mb-4 floating-animation">Tekne 3</h1>
+              <p class="text-xl mb-8">Premium donanım, lüks deneyim</p>
+              <button onclick="scrollToBoats()"
+                      class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition transform hover:scale-105">
+                Rezervasyon Yap
+              </button>
             </div>
-            
-            <div class="grid md:grid-cols-2 gap-12">
-                <!-- Contact Info -->
-                <div class="text-white">
-                    <div class="mb-8">
-                        <h3 class="text-2xl font-semibold mb-6">İletişim Bilgileri</h3>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-center">
-                                <i class="fas fa-phone text-xl mr-4"></i>
-                                <div>
-                                    <p class="font-semibold">Telefon</p>
-                                    <p>+90 541 559 50 01</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center">
-                                <i class="fas fa-envelope text-xl mr-4"></i>
-                                <div>
-                                    <p class="font-semibold">E-posta</p>
-                                    <p>grandyatcilik@gmail.com</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center">
-                                <i class="fas fa-map-marker-alt text-xl mr-4"></i>
-                                <div>
-                                    <p class="font-semibold">Adres</p>
-                                    <p>Yalıkavak, İskele Cd. No:45/1-2-3, 48990 Bodrum/Muğla (Konumumuz McDonalds'ın kıyı tarafında bulunmaktadır)</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Social Media -->
-                    <div>
-                        <h3 class="text-2xl font-semibold mb-6">Sosyal Medya</h3>
-                        <div class="flex space-x-4">
-                            <a href="https://www.instagram.com/grand_yatcilik?igsh=MWZ5bW5qNmtxN3VIaq==" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-3 rounded-full transition duration-300">
-                                <i class="fab fa-instagram text-xl"></i>
-                            </a>
-                            <a href="https://x.com/grand_yatcilik?s=21&t=VFzUtuMPy2EcxtQpBTyDqw" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-3 rounded-full transition duration-300">
-                                <i class="fab fa-twitter text-xl"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Reservation Form -->
-                <div id="reservation-section" class="bg-white rounded-xl p-8 shadow-xl">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Hızlı Rezervasyon</h3>
-                    <form id="reservationForm" class="space-y-4">
-                        <div>
-                          <label class="block text-gray-700 font-medium mb-2">Ad Soyad</label>
-                          <input name="full_name" type="text"
-                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                 placeholder="Adınız ve soyadınız" required>
-                        </div>
-                      
-                        <div>
-                          <label class="block text-gray-700 font-medium mb-2">Telefon</label>
-                          <input name="phone" type="tel"
-                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                 placeholder="+90 5XX XXX XX XX" required>
-                        </div>
-                      
-                        <div>
-                          <label class="block text-gray-700 font-medium mb-2">Tur Seçimi</label>
-                          <!-- Bu alanı JS ile dolduracağız -->
-                          <input id="tourChoice" name="tour" type="text" readonly required
-                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                 placeholder="Üstteki listeden bir tur seçin">
-                        </div>
-                      
-                        <div>
-                          <label class="block text-gray-700 font-medium mb-2">Tarih</label>
-                          <input id="reservationDate" name="date" type="date"
-                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                 required>
-                        </div>
-                      
-                        <!-- Kapasite bilgilendirmesi -->
-                        <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
-                          <p class="text-sm text-blue-800">
-                            <span class="font-semibold">Kapasite Bilgisi:</span>
-                            Grand 1: 6 kişi • Mirbey: 6 kişi • Tekne 3: 12 kişi
-                          </p>
-                        </div>
-                      
-                        <!-- Anti-spam (honeypot) -->
-                        <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
-                      
-                        <button type="submit"
-                                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105">
-                          Rezervasyon Talebi Gönder
-                        </button>
-                    </form>
-                      
-                </div>
-            </div>
+          </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-3 gap-8">
-                <div>
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-anchor text-blue-400 text-2xl mr-2"></i>
-                        <span class="text-xl font-bold">Grand Yatçılık Yat Turları</span>
-                    </div>
-                    <p class="text-gray-300">Bodrum Yalıkavağın en güzel koylarında unutulmaz anılar biriktirin. Profesyonel ekibimiz ve lüks yatımızla size en iyi hizmeti sunuyoruz.</p>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Hızlı Linkler</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#anasayfa" class="text-gray-300 hover:text-white transition duration-300">Ana Sayfa</a></li>
-                        <li><a href="#turlar" class="text-gray-300 hover:text-white transition duration-300">Turlarımız</a></li>
-                        <li><a href="#galeri" class="text-gray-300 hover:text-white transition duration-300">Galeri</a></li>
-                        <li><a href="#iletisim" class="text-gray-300 hover:text-white transition duration-300">İletişim</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Çalışma Saatleri</h4>
-                    <div class="text-gray-300 space-y-1">
-                        <p>Pazartesi - Pazar: 08:00 - 20:00</p>
-                        <p>Rezervasyon: 24/7</p>
-                        <p class="mt-4 text-blue-400">Acil Durum: +90 541 559 50 01</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p class="text-gray-300">&copy; 2024 Grand Yatçılık Yat Turları. Tüm hakları saklıdır.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Reservation Modal -->
-    <div id="reservationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-semibold">Rezervasyon</h3>
-                <button onclick="closeReservationModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            
-            <div class="text-center">
-                <i class="fas fa-check-circle text-green-500 text-6xl mb-4"></i>
-                <h4 class="text-xl font-semibold mb-2" id="selectedTour">Tur Seçildi</h4>
-                <p class="text-gray-600 mb-6">Rezervasyon talebiniz alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.</p>
-                <button onclick="closeReservationModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg">
-                    Tamam
-                </button>
-            </div>
-        </div>
-    </div>
-
-<!-- Gallery Lightbox Modal -->
-<div id="galleryModal" class="fixed inset-0 z-[100] hidden">
-  <!-- Overlay -->
-  <button class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeGalleryModal()" aria-label="Kapat"></button>
-
-  <!-- Content -->
-  <div class="relative max-w-[1600px] mx-auto h-full p-4 md:p-6 flex flex-col">
-    <div class="flex items-center justify-between text-white">
-      <h3 id="galleryTitle" class="text-xl md:text-2xl font-semibold">Galeri</h3>
-      <button onclick="closeGalleryModal()" class="p-2 rounded-full bg-white/10 hover:bg-white/20" aria-label="Kapat">
-        <i class="fas fa-times text-xl"></i>
-      </button>
-    </div>
-
-    <div class="mt-4 relative flex-1 flex items-center justify-center">
-      <!-- 🔽 genişliği/yüksekliği JS ile ayarlayacağımız kutu -->
-      <div id="galleryScroller"
-           class="overflow-x-auto overflow-y-hidden snap-x snap-mandatory flex gap-4 pb-6">
-        <!-- JS ile doldurulacak -->
       </div>
 
-      <!-- Oklar -->
-      <button onclick="prevImage()"
-              class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur"
-              aria-label="Önceki">
+      <!-- Slider Controls -->
+      <button onclick="previousSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full">
         <i class="fas fa-chevron-left"></i>
       </button>
-      <button onclick="nextImage()"
-              class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur"
-              aria-label="Sonraki">
+      <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full">
         <i class="fas fa-chevron-right"></i>
       </button>
 
-      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-white text-sm bg-black/40 px-3 py-1 rounded-full">
-        <span id="galleryCounter">1 / 1</span>
+      <!-- Dots -->
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+        <button onclick="goToSlide(0)" id="dot-0" class="w-3 h-3 bg-white bg-opacity-50 rounded-full hover:bg-opacity-80"></button>
+        <button onclick="goToSlide(1)" id="dot-1" class="w-3 h-3 bg-white bg-opacity-50 rounded-full hover:bg-opacity-80"></button>
+        <button onclick="goToSlide(2)" id="dot-2" class="w-3 h-3 bg-white bg-opacity-50 rounded-full hover:bg-opacity-80"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOATS & TOURS -->
+  <section id="turlar" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">Teknelerimiz & Turlar</h2>
+        <p class="text-xl text-gray-600">Bir tekne seçin, turunuzu açılır listeden belirleyin</p>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Grand 1 -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+          <button onclick="toggleBoat('boat-1')" class="w-full flex items-center justify-between px-6 py-5 hover:bg-gray-50 transition" aria-expanded="false">
+            <div class="flex items-center gap-3">
+              <div class="h-12 w-12 rounded-lg bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white">
+                <i class="fas fa-ship text-2xl"></i>
+              </div>
+              <div class="text-left">
+                <h3 class="text-xl font-semibold text-gray-800">Grand 1</h3>
+                <p class="text-gray-500 text-sm">Konforlu ve ekonomik seçenek</p>
+              </div>
+            </div>
+            <i id="boat-1-icon" class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+          </button>
+
+          <div id="boat-1" class="hidden border-t border-gray-100">
+            <ul class="divide-y">
+              <li class="flex items-center justify-between px-6 py-4">
+                <div>
+                  <p class="font-semibold text-gray-800">Saatlik Tur (3 saat)</p>
+                  <p class="text-sm text-gray-500">Yüzme molası ve ikramlar dahil</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <span class="text-2xl font-bold text-blue-600">Out of service now.</span>
+                  <button onclick="openBoatReservation('Grand 1','Saatlik Tur','₺1.200')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
+                </div>
+              </li>
+
+              <li class="flex items-center justify-between px-6 py-4">
+                <div>
+                  <p class="font-semibold text-gray-800">Günbatımı Turu (4 saat)</p>
+                  <p class="text-sm text-gray-500">Romantik günbatımı manzarası</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <span class="text-2xl font-bold text-orange-600">€300</span>
+                  <button onclick="openBoatReservation('Grand 1','Günbatımı Turu','₺1.800')" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
+                </div>
+              </li>
+
+              <li class="flex items-center justify-between px-6 py-4">
+                <div>
+                  <p class="font-semibold text-gray-800">Tam Gün Turu (8 saat)</p>
+                  <p class="text-sm text-gray-500">Öğle yemeği ve tüm aktiviteler dahil</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <span class="text-2xl font-bold text-green-600">€800</span>
+                  <button onclick="openBoatReservation('Grand 1','Tam Gün Turu','₺2.800')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Mirbey -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+          <button onclick="toggleBoat('boat-2')" class="w-full flex items-center justify-between px-6 py-5 hover:bg-gray-50 transition" aria-expanded="false">
+            <div class="flex items-center gap-3">
+              <div class="h-12 w-12 rounded-lg bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white">
+                <i class="fas fa-anchor text-2xl"></i>
+              </div>
+              <div class="text-left">
+                <h3 class="text-xl font-semibold text-gray-800">Mirbey</h3>
+                <p class="text-gray-500 text-sm">Geniş iç hacim, konforlu alanlar</p>
+              </div>
+            </div>
+            <i id="boat-2-icon" class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+          </button>
+
+          <div id="boat-2" class="hidden border-t border-gray-100">
+            <ul class="divide-y">
+              <li class="flex items-center justify-between px-6 py-4">
+                <div>
+                  <p class="font-semibold text-gray-800">Saatlik Tur (3 saat)</p>
+                  <p class="text-sm text-gray-500">Yüzme molası ve ikramlar dahil</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <span class="text-2xl font-bold text-blue-600">Out of service now.</span>
+                  <button onclick="openBoatReservation('Mirbey','Saatlik Tur','₺1.200')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
+                </div>
+              </li>
+
+              <li class="flex items-center justify-between px-6 py-4">
+                <div>
+                  <p class="font-semibold text-gray-800">Günbatımı Turu (4 saat)</p>
+                  <p class="text-sm text-gray-500">Romantik günbatımı manzarası</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <span class="text-2xl font-bold text-orange-600">€500</span>
+                  <button onclick="openBoatReservation('Mirbey','Günbatımı Turu','₺1.800')" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
+                </div>
+              </li>
+
+              <li class="flex items-center justify-between px-6 py-4">
+                <div>
+                  <p class="font-semibold text-gray-800">Tam Gün Turu (8 saat)</p>
+                  <p class="text-sm text-gray-500">Öğle yemeği ve tüm aktiviteler dahil</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <span class="text-2xl font-bold text-green-600">€1350</span>
+                  <button onclick="openBoatReservation('Mirbey','Tam Gün Turu','₺2.800')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tekne 3 -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+          <button onclick="toggleBoat('boat-3')" class="w-full flex items-center justify-between px-6 py-5 hover:bg-gray-50 transition" aria-expanded="false">
+            <div class="flex items-center gap-3">
+              <div class="h-12 w-12 rounded-lg bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white">
+                <i class="fas fa-water text-2xl"></i>
+              </div>
+              <div class="text-left">
+                <h3 class="text-xl font-semibold text-gray-800">Tekne 3</h3>
+                <p class="text-gray-500 text-sm">Premium donanım, lüks deneyim</p>
+              </div>
+            </div>
+            <i id="boat-3-icon" class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+          </button>
+
+          <div id="boat-3" class="hidden border-t border-gray-100">
+            <ul class="divide-y">
+              <li class="flex items-center justify-between px-6 py-4">
+                <div>
+                  <p class="font-semibold text-gray-800">Saatlik Tur (3 saat)</p>
+                  <p class="text-sm text-gray-500">Yüzme molası ve ikramlar dahil</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <span class="text-2xl font-bold text-blue-600">We'll add our new yacth here.</span>
+                  <button onclick="openBoatReservation('Tekne 3','Saatlik Tur','₺1.200')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
+                </div>
+              </li>
+
+              <li class="flex items-center justify-between px-6 py-4">
+                <div>
+                  <p class="font-semibold text-gray-800">Günbatımı Turu (4 saat)</p>
+                  <p class="text-sm text-gray-500">Romantik günbatımı manzarası</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <span class="text-2xl font-bold text-orange-600">We'll add our new yacth here.</span>
+                  <button onclick="openBoatReservation('Tekne 3','Günbatımı Turu','₺1.800')" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
+                </div>
+              </li>
+
+              <li class="flex items-center justify-between px-6 py-4">
+                <div>
+                  <p class="font-semibold text-gray-800">Tam Gün Turu (8 saat)</p>
+                  <p class="text-sm text-gray-500">Öğle yemeği ve tüm aktiviteler dahil</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <span class="text-2xl font-bold text-green-600">We'll add our new yacth here.</span>
+                  <button onclick="openBoatReservation('Tekne 3','Tam Gün Turu','₺2.800')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">Rezervasyon</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section id="galeri" class="py-20 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">Galeri</h2>
+        <p class="text-xl text-gray-600">Yatımızdan ve turlarımızdan kareler</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div onclick="openGallery('luks')" class="bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition cursor-pointer">
+          <div class="text-center text-white">
+            <i class="fas fa-ship text-4xl mb-2"></i>
+            <p class="text-lg">Lüks Yatımız</p>
+          </div>
+        </div>
+
+        <div onclick="openGallery('kristal')" class="bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition cursor-pointer">
+          <div class="text-center text-white">
+            <i class="fas fa-water text-4xl mb-2"></i>
+            <p class="text-lg">Kristal Berrak Su</p>
+          </div>
+        </div>
+
+        <div onclick="openGallery('gunbatimi')" class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition cursor-pointer">
+          <div class="text-center text-white">
+            <i class="fas fa-sun text-4xl mb-2"></i>
+            <p class="text-lg">Günbatımı Manzarası</p>
+          </div>
+        </div>
+
+        <div onclick="openGallery('yemekler')" class="bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition cursor-pointer">
+          <div class="text-center text-white">
+            <i class="fas fa-utensils text-4xl mb-2"></i>
+            <p class="text-lg">Lezzetli Yemekler</p>
+          </div>
+        </div>
+
+        <div onclick="openGallery('yuzme')" class="bg-gradient-to-br from-green-400 to-green-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition cursor-pointer">
+          <div class="text-center text-white">
+            <i class="fas fa-swimming-pool text-4xl mb-2"></i>
+            <p class="text-lg">Yüzme Keyfi</p>
+          </div>
+        </div>
+
+        <div onclick="openGallery('romantik')" class="bg-gradient-to-br from-pink-400 to-pink-600 rounded-lg h-64 flex items-center justify-center hover:scale-105 transition cursor-pointer">
+          <div class="text-center text-white">
+            <i class="fas fa-heart text-4xl mb-2"></i>
+            <p class="text-lg">Romantik Anlar</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="iletisim" class="py-20 wave-bg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-white mb-4">İletişim</h2>
+        <p class="text-xl text-white opacity-90">Bizimle iletişime geçin, hayalinizdeki turu planlayalım</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- Info -->
+        <div class="text-white">
+          <div class="mb-8">
+            <h3 class="text-2xl font-semibold mb-6">İletişim Bilgileri</h3>
+
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <i class="fas fa-phone text-xl mr-4"></i>
+                <div>
+                  <p class="font-semibold">Telefon</p>
+                  <p>+90 541 559 50 01</p>
+                </div>
+              </div>
+
+              <div class="flex items-center">
+                <i class="fas fa-envelope text-xl mr-4"></i>
+                <div>
+                  <p class="font-semibold">E-posta</p>
+                  <p>grandyatcilik@gmail.com</p>
+                </div>
+              </div>
+
+              <div class="flex items-center">
+                <i class="fas fa-map-marker-alt text-xl mr-4"></i>
+                <div>
+                  <p class="font-semibold">Adres</p>
+                  <p>Yalıkavak, İskele Cd. No:45/1-2-3, 48990 Bodrum/Muğla (Konumumuz McDonalds'ın kıyı tarafında bulunmaktadır)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-2xl font-semibold mb-6">Sosyal Medya</h3>
+            <div class="flex space-x-4">
+              <a href="https://www.instagram.com/grand_yatcilik?igsh=MWZ5bW5qNmtxN3VIaq==" class="bg-white/20 hover:bg-white/30 p-3 rounded-full transition"><i class="fab fa-instagram text-xl"></i></a>
+              <a href="https://x.com/grand_yatcilik?s=21&t=VFzUtuMPy2EcxtQpBTyDqw" class="bg-white/20 hover:bg-white/30 p-3 rounded-full transition"><i class="fab fa-twitter text-xl"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div id="reservation-section" class="bg-white rounded-xl p-8 shadow-xl">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-6">Hızlı Rezervasyon</h3>
+          <form id="reservationForm" class="space-y-4">
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Ad Soyad</label>
+              <input name="full_name" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Adınız ve soyadınız" required>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Telefon</label>
+              <input name="phone" type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="+90 5XX XXX XX XX" required>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Tur Seçimi</label>
+              <input id="tourChoice" name="tour" type="text" readonly required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Üstteki listeden bir tur seçin">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Tarih</label>
+              <input id="reservationDate" name="date" type="date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+              <p class="text-sm text-blue-800">
+                <span class="font-semibold">Kapasite Bilgisi:</span>
+                Grand 1: 6 kişi • Mirbey: 6 kişi • Tekne 3: 12 kişi
+              </p>
+            </div>
+
+            <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition transform hover:scale-105">
+              Rezervasyon Talebi Gönder
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-800 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center mb-4">
+            <i class="fas fa-anchor text-blue-400 text-2xl mr-2"></i>
+            <span class="text-xl font-bold">Grand Yatçılık Yat Turları</span>
+          </div>
+          <p class="text-gray-300">Bodrum Yalıkavağın en güzel koylarında unutulmaz anılar biriktirin. Profesyonel ekibimiz ve lüks yatımızla size en iyi hizmeti sunuyoruz.</p>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Hızlı Linkler</h4>
+          <ul class="space-y-2">
+            <li><a href="#anasayfa" class="text-gray-300 hover:text-white transition">Ana Sayfa</a></li>
+            <li><a href="#turlar" class="text-gray-300 hover:text-white transition">Turlarımız</a></li>
+            <li><a href="#galeri" class="text-gray-300 hover:text-white transition">Galeri</a></li>
+            <li><a href="#iletisim" class="text-gray-300 hover:text-white transition">İletişim</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Çalışma Saatleri</h4>
+          <div class="text-gray-300 space-y-1">
+            <p>Pazartesi - Pazar: 08:00 - 20:00</p>
+            <p>Rezervasyon: 24/7</p>
+            <p class="mt-4 text-blue-400">Acil Durum: +90 541 559 50 01</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+        <p class="text-gray-300">&copy; 2024 Grand Yatçılık Yat Turları. Tüm hakları saklıdır.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- (Eski) Rezervasyon Modal – sayfada kalabilir -->
+  <div id="reservationModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-2xl font-semibold">Rezervasyon</h3>
+        <button onclick="closeReservationModal()" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+
+      <div class="text-center">
+        <i class="fas fa-check-circle text-green-500 text-6xl mb-4"></i>
+        <h4 id="selectedTour" class="text-xl font-semibold mb-2">Tur Seçildi</h4>
+        <p class="text-gray-600 mb-6">Rezervasyon talebiniz alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.</p>
+        <button onclick="closeReservationModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg">Tamam</button>
       </div>
     </div>
   </div>
-</div>
 
+  <!-- GALLERY LIGHTBOX -->
+  <div id="galleryModal" class="fixed inset-0 z-[100] hidden">
+    <!-- Overlay -->
+    <button class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeGalleryModal()" aria-label="Kapat"></button>
 
+    <!-- Content -->
+    <div class="relative max-w-[1600px] mx-auto h-full p-4 md:p-6 flex flex-col">
+      <div class="flex items-center justify-between text-white">
+        <h3 id="galleryTitle" class="text-xl md:text-2xl font-semibold">Galeri</h3>
+        <button onclick="closeGalleryModal()" class="p-2 rounded-full bg-white/10 hover:bg-white/20" aria-label="Kapat">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
 
+      <div class="mt-4 relative flex-1 flex items-center justify-center">
+        <!-- viewport sarmalayıcı -->
+        <div class="gallery-viewport">
+          <div id="galleryScroller" class="overflow-x-auto overflow-y-hidden snap-x snap-mandatory flex gap-4 pb-6">
+            <!-- JS dolduracak -->
+          </div>
+        </div>
 
+        <!-- Arrows -->
+        <button onclick="prevImage()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur" aria-label="Önceki">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button onclick="nextImage()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur" aria-label="Sonraki">
+          <i class="fas fa-chevron-right"></i>
+        </button>
 
-    <script>
-        /***********************
-         *  SLIDER (Hero)
-         ***********************/
-        let currentSlide = 0;
-        const totalSlides = 3;
-      
-        function updateSlider() {
-          const sliderTrack = document.getElementById('sliderTrack');
-          if (!sliderTrack) return;
-          sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-      
-          // Nokta göstergeleri
-          for (let i = 0; i < totalSlides; i++) {
-            const dot = document.getElementById(`dot-${i}`);
-            if (!dot) continue;
-            if (i === currentSlide) {
-              dot.classList.add('bg-opacity-80');
-              dot.classList.remove('bg-opacity-50');
-            } else {
-              dot.classList.add('bg-opacity-50');
-              dot.classList.remove('bg-opacity-80');
-            }
-          }
-        }
-      
-        function nextSlide() {
-          currentSlide = (currentSlide + 1) % totalSlides;
-          updateSlider();
-        }
-      
-        function previousSlide() {
-          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-          updateSlider();
-        }
-      
-        function goToSlide(slideIndex) {
-          currentSlide = slideIndex;
-          updateSlider();
-        }
-      
-        // Auto-slide
-        setInterval(nextSlide, 5000);
-      
-        // İlk kurulum
-        updateSlider();
-      
-      
-        /***********************
-         *  KAYDIRMA FONKSİYONLARI
-         ***********************/
-        // Hero butonları için: "Teknelerimiz & Turlar" bölümüne kaydır
-        function scrollToBoats() {
-          const el = document.getElementById('turlar');
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      
-        // Navigasyon linkleri için yumuşak kaydırma
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function (e) {
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-              e.preventDefault();
-              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          });
-        });
-      
-      
-        /***********************
-         *  DROPDOWN / AKORDEON
-         ***********************/
-        function toggleBoat(id) {
-          const allBodies = ['boat-1', 'boat-2', 'boat-3'];
-          allBodies.forEach(b => {
-            const el = document.getElementById(b);
-            const icon = document.getElementById(b + '-icon');
-            if (!el) return;
-      
-            if (b === id) {
-              const isHidden = el.classList.contains('hidden');
-              if (isHidden) {
-                el.classList.remove('hidden');
-                icon && icon.classList.add('rotate-180');
-              } else {
-                el.classList.add('hidden');
-                icon && icon.classList.remove('rotate-180');
-              }
-            } else {
-              el.classList.add('hidden');
-              icon && icon.classList.remove('rotate-180');
-            }
-          });
-        }
-      
-      
-        /***********************
-         *  REZERVASYON AKIŞI
-         *  - Dropdown’daki "Rezervasyon" tıklanınca
-         *    formdaki Tur alanını doldurur, iletişim bölümüne iner.
-         ***********************/
-        function openBoatReservation(boatName, tourName, price) {
-          // “Tekne X • Tur Adı — ₺fiyat” metni
-          const display = `${boatName} • ${tourName} — ${price}`;
-      
-          // Hızlı Rezervasyon formundaki Tur alanını doldur
-          const tourInput = document.getElementById('tourChoice');          // name="tour" olan readonly input
-          if (tourInput) tourInput.value = display;
-      
-          // (Varsa) gizli alanı da doldur
-          const hidden = document.getElementById('tourChoiceHidden');
-          if (hidden) hidden.value = display;
-      
-          // Tarih inputunu bugün ve sonrası olacak şekilde sınırla (min)
-          const dateInput = document.getElementById('reservationDate');
-          if (dateInput && !dateInput.min) {
-            const today = new Date();
-            const iso = today.toISOString().split('T')[0];
-            dateInput.min = iso;
-          }
-      
-          // İletişim/rezervasyon bölümüne in ve tarih alanına odaklan
-          const section = document.getElementById('reservation-section');
-          if (section) {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            setTimeout(() => dateInput && dateInput.focus({ preventScroll: true }), 400);
-          }
-        }
-      
-        // Sayfa yüklenince tarih alanını aktif et (min=today) — kullanıcı seçsin, default değer atamıyoruz
-        document.addEventListener('DOMContentLoaded', () => {
-          const dateInput = document.getElementById('reservationDate') || document.querySelector('#reservationForm input[type="date"]');
-          if (dateInput) {
-            const today = new Date();
-            const iso = today.toISOString().split('T')[0];
-            dateInput.min = iso;
-          }
-        });
-      
-      
-        /***********************
-         *  FORM SUBMIT → WhatsApp (Vercel /api/reserve)
-         *  - Twilio WhatsApp Sandbox/Business ile mesaj yollar
-         ***********************/
-        const form = document.getElementById('reservationForm');
-        if (form) {
-          form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-      
-            const fd = new FormData(form);
-            // Ek bağlamsal bilgiler
-            fd.append('page_url', location.href);
-            fd.append('submitted_at', new Date().toISOString());
-      
-            try {
-              const res = await fetch('/api/reserve', {
-                method: 'POST',
-                headers: { 'Accept': 'application/json' },
-                body: fd
-              });
-      
-              const data = await res.json();
-              if (!res.ok) throw new Error(data.error || 'Gönderim başarısız');
-      
-              alert('Rezervasyon talebiniz alındı. En kısa sürede dönüş yapacağız.');
-              form.reset();
-              const tc = document.getElementById('tourChoice');
-              if (tc) tc.value = ''; // Tur alanını da temizlemek isterseniz
-            } catch (err) {
-              console.error(err);
-              alert('Üzgünüz, bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
-            }
-          });
-        }
-      
-        /***********************
-         *  NOT:
-         *  Eski "reservation modal" fonksiyonları (openReservationModal/closeReservationModal)
-         *  artık kullanılmıyor; modal kodu sayfada kalsa da JS tarafında gerek yok.
-         ***********************/
-
-         /**************  GALERİ (Lightbox)  **************/
-  // 1) Kategori -> foto listesi
-  const galleries = {
-    luks: {
-      title: 'Lüks Yatımız',
-      images: [
-        'images/tekne1.jpg',
-        'images/grand1.jpg',
-        'images/grand2.jpg',
-        'images/grand3.jpg',
-        'images/grand4.jpg',
-        'images/tekne2.png',
-        'images/mirbey1.png',
-        'images/mirbey2.png',
-        'images/mirbey3.png',
-        'images/mirbey4.png',
-
-      ]
-    },
-    kristal: {
-      title: 'Kristal Berrak Su',
-      images: [
-        'images/kristalsu1.jpg',
-        'images/kristalsu2.jpg',
-        'images/kristalsu3.jpg'
-      ]
-    },
-    gunbatimi: {
-      title: 'Günbatımı Manzarası',
-      images: [
-        'images/gunbatimi1.jpg',
-        'images/gunbatimi2.jpg',
-        'images/gunbatimi3.jpg'
-      ]
-    },
-    yemekler: {
-      title: 'Lezzetli Yemekler',
-      images: [
-        'images/yemekler1.jpg',
-        'images/yemekler2.jpg',
-        'images/yemekler3.jpg'
-      ]
-    },
-    yuzme: {
-      title: 'Yüzme Keyfi',
-      images: [
-        'images/yuzme1.jpg',
-        'images/yuzme2.jpg',
-        'images/yuzme3.jpg'
-      ]
-    },
-    romantik: {
-      title: 'Romantik Anlar',
-      images: [
-        'images/romantik1.jpg',
-        'images/romantik2.jpg',
-        'images/romantik3.jpg'
-      ]
-    }
-  };
-
-  let galCurrentKey = null;
-  let galIndex = 0;
-
-  function openGallery(key) {
-  const cfg = galleries[key];
-  if (!cfg) return;
-
-  galCurrentKey = key;
-  galIndex = 0;
-
-  // Başlık
-  const titleEl = document.getElementById('galleryTitle');
-  if (titleEl) titleEl.textContent = cfg.title;
-
-  // Slide'ları kur
-  const scroller = document.getElementById('galleryScroller');
-  if (!scroller) return;
-
-  scroller.innerHTML = cfg.images.map((src, i) => `
-    <div class="shrink-0 w-full h-full snap-center flex items-center justify-center">
-      <img src="${src}" alt="${cfg.title} ${i+1}"
-           class="max-w-full max-h-full object-contain rounded-xl shadow-xl select-none">
+        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-white text-sm bg-black/40 px-3 py-1 rounded-full">
+          <span id="galleryCounter">1 / 1</span>
+        </div>
+      </div>
     </div>
-  `).join('');
-  scroller.scrollLeft = 0;
+  </div>
 
-  // 🔧 Viewport'u ekrana göre (ama en fazla 1600×900) ayarla
-  function sizeGalleryViewport() {
-    const H_MARGIN = 32;   // sağ-sol toplam ~32px boşluk
-    const V_MARGIN = 128;  // üst bar + alt sayaç/pay için
-    const MAX_W = 1600;
-    const MAX_H = 900;
+  <script>
+    /******** SLIDER ********/
+    let currentSlide = 0;
+    const totalSlides = 3;
 
-    const w = Math.min(window.innerWidth  - H_MARGIN, MAX_W);
-    const h = Math.min(window.innerHeight - V_MARGIN, MAX_H);
+    function updateSlider() {
+      const track = document.getElementById('sliderTrack');
+      if (!track) return;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-    scroller.style.width  = w + 'px';
-    scroller.style.height = h + 'px';
-  }
-
-  sizeGalleryViewport();
-  window.addEventListener('resize', sizeGalleryViewport);
-  // İstersen kapatırken kaldır: window.removeEventListener('resize', sizeGalleryViewport)  → closeGalleryModal içinde yap
-
-  // Modalı aç
-  document.getElementById('galleryModal')?.classList.remove('hidden');
-  document.body.classList.add('overflow-hidden');
-
-  // Sayaç
-  updateGalleryCounter();
-
-  // Scroll ile index güncelleme (kullanıcı sürüklerse)
-  scroller.addEventListener('scroll', handleGalleryScroll, { passive: true });
-
-  // Klavye kısayolları
-  document.addEventListener('keydown', galleryKeydown);
-}
-
-
-  function closeGalleryModal() {
-    document.getElementById('galleryModal').classList.add('hidden');
-    document.body.classList.remove('overflow-hidden');
-
-    const scroller = document.getElementById('galleryScroller');
-    scroller.removeEventListener('scroll', handleGalleryScroll);
-    document.removeEventListener('keydown', galleryKeydown);
-  }
-
-  function updateGalleryCounter() {
-    const total = galleries[galCurrentKey]?.images.length || 0;
-    document.getElementById('galleryCounter').textContent = `${galIndex + 1} / ${total}`;
-  }
-
-  function scrollToImage(i) {
-    const cfg = galleries[galCurrentKey];
-    if (!cfg) return;
-    const scroller = document.getElementById('galleryScroller');
-    const slides = scroller.children;
-    if (i < 0 || i >= slides.length) return;
-    galIndex = i;
-    slides[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    updateGalleryCounter();
-  }
-
-  function nextImage() {
-    const total = galleries[galCurrentKey]?.images.length || 0;
-    scrollToImage(Math.min(galIndex + 1, total - 1));
-  }
-
-  function prevImage() {
-    scrollToImage(Math.max(galIndex - 1, 0));
-  }
-
-  // Scroll sonunda en yakın slide'ı bulalım (hafif throttle)
-  let galScrollTimer;
-  function handleGalleryScroll() {
-    clearTimeout(galScrollTimer);
-    galScrollTimer = setTimeout(() => {
-      const scroller = document.getElementById('galleryScroller');
-      const slides = [...scroller.children];
-      const center = scroller.scrollLeft + scroller.clientWidth / 2;
-
-      let nearest = 0;
-      let minDist = Infinity;
-      slides.forEach((el, idx) => {
-        const elCenter = el.offsetLeft + el.clientWidth / 2;
-        const d = Math.abs(elCenter - center);
-        if (d < minDist) { minDist = d; nearest = idx; }
-      });
-
-      if (nearest !== galIndex) {
-        galIndex = nearest;
-        updateGalleryCounter();
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.getElementById(`dot-${i}`);
+        if (!dot) continue;
+        if (i === currentSlide) { dot.classList.add('bg-opacity-80'); dot.classList.remove('bg-opacity-50'); }
+        else { dot.classList.add('bg-opacity-50'); dot.classList.remove('bg-opacity-80'); }
       }
-    }, 120);
-  }
-
-  function galleryKeydown(e) {
-    if (document.getElementById('galleryModal').classList.contains('hidden')) return;
-    if (e.key === 'Escape') closeGalleryModal();
-    if (e.key === 'ArrowRight') nextImage();
-    if (e.key === 'ArrowLeft') prevImage();
-  }
-
-/* ------------------ EN ÇEVİRİ (hafif i18n) ------------------ */
-/* 1) Çeviri çiftleri – uzun metinler dahil edildi ve düzeltilmiş halleri eklendi */
-const TR_EN_PAIRS = [
-  // <title> – mevcut başlık
-  ["Grand Yatçılık Yat Turları - Unutulmaz Deniz Maceraları", "Grand Yachting Yacht Tours - Unforgettable Sea Adventures"],
-
-  // Marka/başlık
-  ["Grand Yatçılık-Grand Yacthing", "Grand Yachting"],
-
-  // NAV & bölüm başlıkları
-  ["Teknelerimiz & Turlar", "Our Boats & Tours"],
-  ["Turlarımız", "Our Tours"],
-  ["Galeri", "Gallery"],
-  ["İletişim Bilgileri", "Contact Information"], // uzun ifade öne alındı
-  ["İletişim", "Contact"],
-  ["Ana Sayfa", "Home"],
-
-  // Turlar bölümü intro
-  ["Bir tekne seçin, turunuzu açılır listeden belirleyin", "Select a boat and choose your tour from the drop-down list"],
-  ["Tur Seçeneklerimiz", "Our Tour Options"],
-  ["Her bütçeye uygun, unutulmaz deniz maceraları", "Unforgettable sea adventures for every budget"],
-
-  // Kartların alt açıklamaları (tam eşleşen halleri)
-  ["Konforlu ve ekonomik seçenek", "Comfortable and economical option"],
-  ["Geniş iç hacim, konforlu alanlar", "Large interior volume, comfortable areas"],
-  ["Premium donanım, lüks deneyim", "Premium equipment, luxury experience"],
-
-  // Paket adları ve açıklamalar
-  ["Saatlik Tur (3 saat)", "Hourly Tour (3 hours)"],
-  ["Günbatımı Turu (4 saat)", "Sunset Tour (4 hours)"],
-  ["Tam Gün Turu (8 saat)", "Full-Day Tour (8 hours)"],
-  ["Yüzme molası ve ikramlar dahil", "Swimming break and refreshments included"],
-  ["Romantik günbatımı manzarası", "Romantic sunset view"],
-  ["Öğle yemeği ve tüm aktiviteler dahil", "Lunch and all activities included"],
-
-  // Hero slider metinleri
-  ["Rezervasyon Yap", "Book Now"],
-  ["Konforlu ve ekonomik deniz keyfi", "Comfortable and economical sea pleasure"],
-  ["Geniş iç hacim, rahat alanlar", "Large interior volume, comfortable areas"],
-
-  // Galeri başlığı ve alt metin
-  ["Yatımızdan ve turlarımızdan kareler", "Photos from our yacht and tours"],
-
-  // Galeri kutuları
-  ["Lüks Yatımız", "Our Luxury Yacht"],
-  ["Kristal Berrak Su", "Crystal-Clear Water"],
-  ["Günbatımı Manzarası", "Sunset View"],
-  ["Lezzetli Yemekler", "Delicious Meals"],
-  ["Yüzme Keyfi", "Swimming Fun"],
-  ["Romantik Anlar", "Romantic Moments"],
-
-  // İletişim intro
-  ["Bizimle iletişime geçin, hayalinizdeki turu planlayalım", "Contact us, let's plan your dream tour"],
-
-  // Form
-  ["Hızlı Rezervasyon", "Quick Reservation"],
-  ["Ad Soyad", "Full Name"],
-  ["Telefon", "Phone"],
-  ["E-posta", "E-mail"],
-  ["Adres", "Address"],
-  ["Tur Seçimi", "Tour Selection"],
-  ["Tarih", "Date"],
-  ["Rezervasyon Talebi Gönder", "Send Reservation Request"],
-
-  // Kapasite bloğu (iki ayrı metin)
-  ["Kapasite Bilgisi:", "Capacity:"],
-  ["Grand 1: 6 kişi • Mirbey: 6 kişi • Tekne 3: 12 kişi", "Grand 1: 6 people • Mirbey: 6 people • Boat 3: 12 people"],
-
-  // Footer
-  ["Hızlı Linkler", "Quick Links"],
-  ["Çalışma Saatleri", "Opening Hours"],
-  ["Pazartesi - Pazar: 08:00 - 20:00", "Monday - Sunday: 08:00 - 20:00"],
-  ["Rezervasyon: 24/7", "Reservations: 24/7"],
-  ["Acil Durum:", "Emergency:"],
-  ["Tüm hakları saklıdır.", "All rights reserved."],
-  ["Bodrum Yalıkavağın en güzel koylarında unutulmaz anılar biriktirin. Profesyonel ekibimiz ve lüks yatımızla size en iyi hizmeti sunuyoruz.",
-   "Create unforgettable memories in the most beautiful bays of Bodrum Yalıkavak. Our professional crew and luxury yacht provide the best service."],
-
-  // Modal
-  ["Rezervasyon", "Reservation"],
-  ["Tur Seçildi", "Tour Selected"],
-  ["Rezervasyon talebiniz alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.",
-   "Your reservation request has been received. We will contact you as soon as possible."],
-  ["Tamam", "OK"],
-
-  // Tekil kelime/kalıplar (en sona bırak!)
-  ["Saatlik Tur", "Hourly Tour"],
-  ["Günbatımı Turu", "Sunset Tour"],
-  ["Tam Gün Turu", "Full-Day Tour"],
-  ["Tekne ", "Boat "] // boşluk önemli: "Teknelerimiz"e dokunmaz
-];
-
-// Placeholder çevirileri
-const PH_TR_EN = [
-  ["Adınız ve soyadınız", "Your full name"],
-  ["Üstteki listeden bir tur seçin", "Pick a tour from above"],
-  ["+90 5XX XXX XX XX", "+90 5XX XXX XX XX"]
-];
-
-// 2) Text node’ları dolaş ve çevir — ama ÇİFTLERİ önce uzunluklarına göre sırala (kritik!)
-function translateTextNodes(pairs) {
-  const SKIP = new Set(["SCRIPT","STYLE","NOSCRIPT","IFRAME","OBJECT"]);
-  const sorted = pairs.slice().sort((a,b) => b[0].length - a[0].length); // uzun TR önce
-  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-    acceptNode(node) {
-      if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-      if (SKIP.has(node.parentElement?.nodeName)) return NodeFilter.FILTER_REJECT;
-      return NodeFilter.FILTER_ACCEPT;
     }
-  });
-  let n;
-  while ((n = walker.nextNode())) {
-    let txt = n.nodeValue;
-    for (const [tr, en] of sorted) {
-      if (txt.includes(tr)) txt = txt.split(tr).join(en);
+    function nextSlide(){ currentSlide=(currentSlide+1)%totalSlides; updateSlider(); }
+    function previousSlide(){ currentSlide=(currentSlide-1+totalSlides)%totalSlides; updateSlider(); }
+    function goToSlide(i){ currentSlide=i; updateSlider(); }
+    setInterval(nextSlide, 5000);
+    updateSlider();
+
+    /******** SCROLL HELPERS ********/
+    function scrollToBoats(){ document.getElementById('turlar')?.scrollIntoView({behavior:'smooth', block:'start'}); }
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const t=document.querySelector(a.getAttribute('href'));
+        if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+
+    /******** DROPDOWN ********/
+    function toggleBoat(id){
+      ['boat-1','boat-2','boat-3'].forEach(b=>{
+        const el=document.getElementById(b); const ic=document.getElementById(b+'-icon');
+        if(!el) return;
+        if(b===id){ const isHidden=el.classList.contains('hidden');
+          if(isHidden){ el.classList.remove('hidden'); ic&&ic.classList.add('rotate-180'); }
+          else { el.classList.add('hidden'); ic&&ic.classList.remove('rotate-180'); }
+        } else { el.classList.add('hidden'); ic&&ic.classList.remove('rotate-180'); }
+      });
     }
-    if (txt !== n.nodeValue) n.nodeValue = txt;
-  }
-}
 
-// Placeholder’ları çevir
-function translatePlaceholders(pairs) {
-  const sorted = pairs.slice().sort((a,b) => b[0].length - a[0].length);
-  document.querySelectorAll('input[placeholder], textarea[placeholder]').forEach(el => {
-    let ph = el.getAttribute('placeholder') || '';
-    for (const [tr, en] of sorted) {
-      if (ph.includes(tr)) ph = ph.split(tr).join(en);
+    /******** REZERVASYON ********/
+    function openBoatReservation(boatName, tourName, price){
+      const display = `${boatName} • ${tourName} — ${price}`;
+      const tourInput = document.getElementById('tourChoice');
+      if (tourInput) tourInput.value = display;
+
+      const dateInput = document.getElementById('reservationDate');
+      if (dateInput && !dateInput.min) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+      }
+
+      const section = document.getElementById('reservation-section');
+      if (section) {
+        section.scrollIntoView({ behavior:'smooth', block:'start' });
+        setTimeout(()=> dateInput && dateInput.focus({preventScroll:true}), 400);
+      }
+
+      // EN seçiliyse tur metnini de çevir
+      if (window.__lang === 'en' && tourInput && tourInput.value) {
+        const sorted=TR_EN_PAIRS.slice().sort((a,b)=>b[0].length-a[0].length);
+        let v=tourInput.value; for(const [tr,en] of sorted){ if(v.includes(tr)) v=v.split(tr).join(en); }
+        tourInput.value=v;
+      }
     }
-    el.setAttribute('placeholder', ph);
-  });
-}
 
-// Başlık (title) güncelle
-function translateDocumentTitle() {
-  // başlıklar için de uzunluk sıralı kontrol
-  const sorted = TR_EN_PAIRS.slice().sort((a,b) => b[0].length - a[0].length);
-  for (const [tr, en] of sorted) {
-    if (document.title.includes(tr)) {
-      document.title = document.title.split(tr).join(en);
-      break;
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const dateInput = document.getElementById('reservationDate') || document.querySelector('#reservationForm input[type="date"]');
+      if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+      }
+    });
+
+    // Submit → /api/reserve (Twilio/WhatsApp)
+    const form = document.getElementById('reservationForm');
+    if (form) {
+      form.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const fd=new FormData(form);
+        fd.append('page_url', location.href);
+        fd.append('submitted_at', new Date().toISOString());
+        try{
+          const res=await fetch('/api/reserve',{ method:'POST', headers:{'Accept':'application/json'}, body:fd });
+          const data=await res.json();
+          if(!res.ok) throw new Error(data.error||'Gönderim başarısız');
+          alert('Rezervasyon talebiniz alındı. En kısa sürede dönüş yapacağız.');
+          form.reset();
+          const tc=document.getElementById('tourChoice'); if(tc) tc.value='';
+        }catch(err){ console.error(err); alert('Üzgünüz, bir hata oluştu. Lütfen daha sonra tekrar deneyin.'); }
+      });
     }
-  }
-}
 
-// Tek tıkla İngilizce
-function setEN() {
-  if (window.__lang === 'en') return;
-  window.__lang = 'en';
-  document.documentElement.lang = 'en';
-  document.documentElement.dir = 'ltr';
+    /******** GALLERY ********/
+    const galleries = {
+      luks: {
+        title:'Lüks Yatımız',
+        images:[
+          'images/tekne1.jpg',
+          'images/grand1.jpg',
+          'images/grand2.jpg',
+          'images/grand3.jpg',
+          'images/grand4.jpg',
+          'images/tekne2.png',
+          'images/mirbey1.png',
+          'images/mirbey2.png',
+          'images/mirbey3.png',
+          'images/mirbey4.png'
+        ]
+      },
+      kristal:{ title:'Kristal Berrak Su', images:['images/kristalsu1.jpg','images/kristalsu2.jpg','images/kristalsu3.jpg'] },
+      gunbatimi:{ title:'Günbatımı Manzarası', images:['images/gunbatimi1.jpg','images/gunbatimi2.jpg','images/gunbatimi3.jpg'] },
+      yemekler:{ title:'Lezzetli Yemekler', images:['images/yemekler1.jpg','images/yemekler2.jpg','images/yemekler3.jpg'] },
+      yuzme:{ title:'Yüzme Keyfi', images:['images/yuzme1.jpg','images/yuzme2.jpg','images/yuzme3.jpg'] },
+      romantik:{ title:'Romantik Anlar', images:['images/romantik1.jpg','images/romantik2.jpg','images/romantik3.jpg'] }
+    };
 
-  translateTextNodes(TR_EN_PAIRS);
-  translatePlaceholders(PH_TR_EN);
-  translateDocumentTitle();
+    let galCurrentKey=null, galIndex=0;
+    function openGallery(key){
+      const cfg=galleries[key]; if(!cfg) return;
+      galCurrentKey=key; galIndex=0;
 
-  // Tur seçimi input'u EN modunda doldurulursa, onu da çevirelim
-  const tc = document.getElementById('tourChoice');
-  if (tc && tc.value) {
-    const sorted = TR_EN_PAIRS.slice().sort((a,b) => b[0].length - a[0].length);
-    let v = tc.value;
-    for (const [tr, en] of sorted) if (v.includes(tr)) v = v.split(tr).join(en);
-    tc.value = v;
-  }
-}
+      const titleEl=document.getElementById('galleryTitle'); if(titleEl) titleEl.textContent=cfg.title;
+      const scroller=document.getElementById('galleryScroller'); if(!scroller) return;
 
+      scroller.innerHTML = cfg.images.map((src,i)=>`
+        <div class="shrink-0 w-full h-full snap-center flex items-center justify-center">
+          <img src="${src}" alt="${cfg.title} ${i+1}" loading="lazy"
+               class="max-w-full max-h-full object-contain rounded-xl shadow-xl select-none"
+               onerror="this.style.opacity=.2"/>
+        </div>
+      `).join('');
+      scroller.scrollLeft=0;
 
-  /* openBoatReservation içinde tur metnini EN’ye çevirmek istersen,
-     fonksiyonun sonunda şu iki satırı ekleyebilirsin:
-     if (window.__lang === 'en') {
-       const tc = document.getElementById('tourChoice');
-       if (tc) for (const [tr,en] of TR_EN_PAIRS) tc.value = tc.value.split(tr).join(en);
-     }
-  */
-      </script>
-      
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97737fc0a736e321',t:'MTc1NjU0ODYzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+      document.getElementById('galleryModal')?.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+
+      updateGalleryCounter();
+      scroller.addEventListener('scroll', handleGalleryScroll, {passive:true});
+      document.addEventListener('keydown', galleryKeydown);
+    }
+
+    function closeGalleryModal(){
+      document.getElementById('galleryModal')?.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+      const scroller=document.getElementById('galleryScroller');
+      scroller?.removeEventListener('scroll', handleGalleryScroll);
+      document.removeEventListener('keydown', galleryKeydown);
+    }
+
+    function updateGalleryCounter(){
+      const total=galleries[galCurrentKey]?.images.length||0;
+      document.getElementById('galleryCounter').textContent=`${galIndex+1} / ${total}`;
+    }
+
+    function scrollToImage(i){
+      const scroller=document.getElementById('galleryScroller');
+      const slides=scroller?.children||[];
+      if(i<0 || i>=slides.length) return;
+      galIndex=i;
+      slides[i].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+      updateGalleryCounter();
+    }
+    function nextImage(){ const total=galleries[galCurrentKey]?.images.length||0; scrollToImage(Math.min(galIndex+1,total-1)); }
+    function prevImage(){ scrollToImage(Math.max(galIndex-1,0)); }
+
+    let galScrollTimer;
+    function handleGalleryScroll(){
+      clearTimeout(galScrollTimer);
+      galScrollTimer=setTimeout(()=>{
+        const scroller=document.getElementById('galleryScroller'); if(!scroller) return;
+        const slides=[...scroller.children];
+        const center=scroller.scrollLeft + scroller.clientWidth/2;
+        let nearest=0, minDist=Infinity;
+        slides.forEach((el,idx)=>{
+          const elCenter=el.offsetLeft + el.clientWidth/2;
+          const d=Math.abs(elCenter-center);
+          if(d<minDist){ minDist=d; nearest=idx; }
+        });
+        if(nearest!==galIndex){ galIndex=nearest; updateGalleryCounter(); }
+      },120);
+    }
+
+    function galleryKeydown(e){
+      if(document.getElementById('galleryModal')?.classList.contains('hidden')) return;
+      if(e.key==='Escape') closeGalleryModal();
+      if(e.key==='ArrowRight') nextImage();
+      if(e.key==='ArrowLeft') prevImage();
+    }
+
+    /******** EN ÇEVİRİ (hafif i18n) ********/
+    const TR_EN_PAIRS = [
+      ["Grand Yatçılık Yat Turları - Unutulmaz Deniz Maceraları","Grand Yachting Yacht Tours - Unforgettable Sea Adventures"],
+      ["Grand Yatçılık-Grand Yacthing","Grand Yachting"],
+      ["Teknelerimiz & Turlar","Our Boats & Tours"], ["Turlarımız","Our Tours"], ["Galeri","Gallery"],
+      ["İletişim Bilgileri","Contact Information"], ["İletişim","Contact"], ["Ana Sayfa","Home"],
+      ["Bir tekne seçin, turunuzu açılır listeden belirleyin","Select a boat and choose your tour from the drop-down list"],
+      ["Tur Seçeneklerimiz","Our Tour Options"], ["Her bütçeye uygun, unutulmaz deniz maceraları","Unforgettable sea adventures for every budget"],
+      ["Konforlu ve ekonomik seçenek","Comfortable and economical option"], ["Geniş iç hacim, konforlu alanlar","Large interior volume, comfortable areas"],
+      ["Premium donanım, lüks deneyim","Premium equipment, luxury experience"],
+      ["Saatlik Tur (3 saat)","Hourly Tour (3 hours)"], ["Günbatımı Turu (4 saat)","Sunset Tour (4 hours)"], ["Tam Gün Turu (8 saat)","Full-Day Tour (8 hours)"],
+      ["Yüzme molası ve ikramlar dahil","Swimming break and refreshments included"], ["Romantik günbatımı manzarası","Romantic sunset view"],
+      ["Öğle yemeği ve tüm aktiviteler dahil","Lunch and all activities included"],
+      ["Rezervasyon Yap","Book Now"], ["Konforlu ve ekonomik deniz keyfi","Comfortable and economical sea pleasure"],
+      ["Geniş iç hacim, rahat alanlar","Large interior volume, comfortable areas"],
+      ["Yatımızdan ve turlarımızdan kareler","Photos from our yacht and tours"],
+      ["Lüks Yatımız","Our Luxury Yacht"], ["Kristal Berrak Su","Crystal-Clear Water"], ["Günbatımı Manzarası","Sunset View"],
+      ["Lezzetli Yemekler","Delicious Meals"], ["Yüzme Keyfi","Swimming Fun"], ["Romantik Anlar","Romantic Moments"],
+      ["Bizimle iletişime geçin, hayalinizdeki turu planlayalım","Contact us, let's plan your dream tour"],
+      ["Hızlı Rezervasyon","Quick Reservation"], ["Ad Soyad","Full Name"], ["Telefon","Phone"], ["E-posta","E-mail"], ["Adres","Address"],
+      ["Tur Seçimi","Tour Selection"], ["Tarih","Date"], ["Rezervasyon Talebi Gönder","Send Reservation Request"],
+      ["Kapasite Bilgisi:","Capacity:"],
+      ["Grand 1: 6 kişi • Mirbey: 6 kişi • Tekne 3: 12 kişi","Grand 1: 6 people • Mirbey: 6 people • Boat 3: 12 people"],
+      ["Hızlı Linkler","Quick Links"], ["Çalışma Saatleri","Opening Hours"], ["Pazartesi - Pazar: 08:00 - 20:00","Monday - Sunday: 08:00 - 20:00"],
+      ["Rezervasyon: 24/7","Reservations: 24/7"], ["Acil Durum:","Emergency:"], ["Tüm hakları saklıdır.","All rights reserved."],
+      ["Bodrum Yalıkavağın en güzel koylarında unutulmaz anılar biriktirin. Profesyonel ekibimiz ve lüks yatımızla size en iyi hizmeti sunuyoruz.",
+       "Create unforgettable memories in the most beautiful bays of Bodrum Yalıkavak. Our professional crew and luxury yacht provide the best service."],
+      ["Rezervasyon","Reservation"], ["Tur Seçildi","Tour Selected"],
+      ["Rezervasyon talebiniz alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.","Your reservation request has been received. We will contact you as soon as possible."],
+      ["Tamam","OK"], ["Saatlik Tur","Hourly Tour"], ["Günbatımı Turu","Sunset Tour"], ["Tam Gün Turu","Full-Day Tour"], ["Tekne ","Boat "]
+    ];
+    const PH_TR_EN = [
+      ["Adınız ve soyadınız","Your full name"],
+      ["Üstteki listeden bir tur seçin","Pick a tour from above"],
+      ["+90 5XX XXX XX XX","+90 5XX XXX XX XX"]
+    ];
+
+    function translateTextNodes(pairs){
+      const SKIP=new Set(["SCRIPT","STYLE","NOSCRIPT","IFRAME","OBJECT"]);
+      const sorted=pairs.slice().sort((a,b)=>b[0].length-a[0].length);
+      const walker=document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node){
+          if(!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          if(SKIP.has(node.parentElement?.nodeName)) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      let n; while((n=walker.nextNode())){
+        let txt=n.nodeValue;
+        for(const [tr,en] of sorted){ if(txt.includes(tr)) txt=txt.split(tr).join(en); }
+        if(txt!==n.nodeValue) n.nodeValue=txt;
+      }
+    }
+    function translatePlaceholders(pairs){
+      const sorted=pairs.slice().sort((a,b)=>b[0].length-a[0].length);
+      document.querySelectorAll('input[placeholder],textarea[placeholder]').forEach(el=>{
+        let ph=el.getAttribute('placeholder')||'';
+        for(const [tr,en] of sorted){ if(ph.includes(tr)) ph=ph.split(tr).join(en); }
+        el.setAttribute('placeholder', ph);
+      });
+    }
+    function translateDocumentTitle(){
+      const sorted=TR_EN_PAIRS.slice().sort((a,b)=>b[0].length-a[0].length);
+      for(const [tr,en] of sorted){ if(document.title.includes(tr)){ document.title=document.title.split(tr).join(en); break; } }
+    }
+    function setEN(){
+      if(window.__lang==='en') return;
+      window.__lang='en'; document.documentElement.lang='en'; document.documentElement.dir='ltr';
+      translateTextNodes(TR_EN_PAIRS); translatePlaceholders(PH_TR_EN); translateDocumentTitle();
+      const tc=document.getElementById('tourChoice');
+      if(tc && tc.value){
+        const sorted=TR_EN_PAIRS.slice().sort((a,b)=>b[0].length-a[0].length);
+        let v=tc.value; for(const [tr,en] of sorted){ if(v.includes(tr)) v=v.split(tr).join(en); } tc.value=v;
+      }
+    }
+  </script>
+
+  <!-- (İstersen kalsın) CF snippet -->
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97737fc0a736e321',t:'MTc1NjU0ODYzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
 </html>
